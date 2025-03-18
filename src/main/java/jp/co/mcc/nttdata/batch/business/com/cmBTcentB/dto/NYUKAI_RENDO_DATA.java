@@ -1,0 +1,91 @@
+package jp.co.mcc.nttdata.batch.business.com.cmBTcentB.dto;
+
+import jp.co.mcc.nttdata.batch.business.com.c_aplcom1.dto.FileReadBaseDto;
+import jp.co.mcc.nttdata.batch.business.com.c_aplcom1.dto.ItemDto;
+
+public class NYUKAI_RENDO_DATA extends FileReadBaseDto {
+
+    public ItemDto recode_type = new ItemDto(1);                            /* レコードタイプ                          */
+    public ItemDto data_kbn = new ItemDto(2);                               /* データ区分                              */
+    public ItemDto henko_flg = new ItemDto(20);                             /* 変更フラグ                              */
+    public ItemDto uketsuke_no = new ItemDto(21);                           /* 受付番号                                */
+    public ItemDto prepaid_card_no = new ItemDto(16);                       /* プリペイドカード番号         未設定項目 */
+    public ItemDto pin = new ItemDto(16);                                   /* 暗証番号                     未設定項目 */
+    public ItemDto moushikomi_date = new ItemDto(8);                        /* 申込年月日                              */
+    public ItemDto kaiyaku_date = new ItemDto(8);                           /* 解約年月日                   未設定項目 */
+    public ItemDto seido_kbn = new ItemDto(2);                              /* 制度区分                     未設定項目 */
+    public ItemDto kokyaku_kbn = new ItemDto(2);                            /* 顧客区分                     未設定項目 */
+    public ItemDto card_design_cd = new ItemDto(5);                         /* カードデザインコード         未設定項目 */
+    public ItemDto brand_cd = new ItemDto(1);                               /* ブランドコード               未設定項目 */
+    public ItemDto honnin_kazoku_kbn = new ItemDto(1);                      /* 本人家族区分                 未設定項目 */
+    public ItemDto ic_card_kbn = new ItemDto(1);                            /* ＩＣカード区分               未設定項目 */
+    public ItemDto zandaka_tsuka_tani = new ItemDto(1);                     /* 残高通貨単位                 未設定項目 */
+    public ItemDto kana_name = new ItemDto(80);                             /* カナ氏名                                */
+    public ItemDto kanji_name = new ItemDto(80);                            /* 漢字氏名                                */
+    public ItemDto romaji_name = new ItemDto(19);                           /* ロ－マ字氏名                 未設定項目 */
+    public ItemDto haigusha = new ItemDto(1);                               /* 配偶者                       未設定項目 */
+    public ItemDto seibetsu = new ItemDto(1);                               /* 性別                                    */
+    public ItemDto birth_date = new ItemDto(8);                             /* 生年月日                                */
+    public ItemDto zip = new ItemDto(7);                                    /* 自宅郵便番号                            */
+    public ItemDto address1 = new ItemDto(80);                              /* 自宅都道府県                            */
+    public ItemDto address2 = new ItemDto(80);                              /* 自宅市区郡町村                          */
+    public ItemDto jitaku_banchi = new ItemDto(80);                         /* 自宅番地                     未設定項目 */
+    public ItemDto address3 = new ItemDto(80);                              /* 自宅方書                                */
+    public ItemDto jitaku_kana_todoufuken = new ItemDto(80);                /* 自宅カナ都道府県             未設定項目 */
+    public ItemDto jitaku_kana_shikuchouson = new ItemDto(80);              /* 自宅カナ市区郡町村           未設定項目 */
+    public ItemDto jitaku_kana_banchi = new ItemDto(80);                    /* 自宅カナ番地                 未設定項目 */
+    public ItemDto jitaku_kana_katagaki = new ItemDto(80);                  /* 自宅カナ方書                 未設定項目 */
+    public ItemDto telephone1 = new ItemDto(13);                            /* 自宅電話番号                            */
+    public ItemDto jyukyo_jyoukyo = new ItemDto(2);                         /* 住居状況                     未設定項目 */
+    public ItemDto telephone2 = new ItemDto(13);                            /* 携帯電話番号                            */
+    public ItemDto mail_address_pc = new ItemDto(50);                       /* E-Mailアドレス（PC）         未設定項目 */
+    public ItemDto mail_address_sp = new ItemDto(50);                       /* E-Mailアドレス（ｽﾏｰﾄﾌｫﾝ）    未設定項目 */
+    public ItemDto honnin_kakunin_kahi_flg = new ItemDto(1);                /* 本人確認可否フラグ           未設定項目 */
+    public ItemDto honnin_kakunin_shiryou_naiyou = new ItemDto(1);          /* 本人確認資料内容             未設定項目 */
+    public ItemDto honnin_kakunin_shiryou_syomen_no = new ItemDto(40);      /* 本人確認資料書面番号         未設定項目 */
+    public ItemDto honnin_kakunin_ymdhm = new ItemDto(12);                  /* 本人確認年月日時分           未設定項目 */
+    public ItemDto honnin_kakunin_sha = new ItemDto(20);                    /* 本人確認者                   未設定項目 */
+    public ItemDto moushikomi_entry_kyousei_horyu_flg = new ItemDto(2);     /* 申込エントリー強制保留フラグ 未設定項目 */
+    public ItemDto riyou_mokuteki = new ItemDto(1);                         /* 利用目的                     未設定項目 */
+    public ItemDto tokoukoku = new ItemDto(40);                             /* 渡航国                       未設定項目 */
+    public ItemDto syuppatsu_yoteibi = new ItemDto(8);                      /* 出発予定日                   未設定項目 */
+    public ItemDto card_kiyaku_doui_shomei = new ItemDto(1);                /* カード規約への同意署名       未設定項目 */
+    public ItemDto sonota_renrakusaki_meisho = new ItemDto(30);             /* その他連絡先名称             未設定項目 */
+    public ItemDto sonota_renrakusaki_kana_meisho = new ItemDto(40);        /* その他連絡先カナ名称         未設定項目 */
+    public ItemDto sonota_renrakusaki_zip = new ItemDto(8);                 /* その他連絡先郵便番号         未設定項目 */
+    public ItemDto sonota_renrakusaki_address1 = new ItemDto(40);           /* その他連絡先住所１           未設定項目 */
+    public ItemDto sonota_renrakusaki_address2 = new ItemDto(40);           /* その他連絡先住所２           未設定項目 */
+    public ItemDto sonota_renrakusaki_banchi = new ItemDto(40);             /* その他連絡先番地             未設定項目 */
+    public ItemDto sonota_renrakusaki_build_meisho = new ItemDto(40);       /* その他連絡先ビル名称         未設定項目 */
+    public ItemDto sonota_renrakusaki_tel = new ItemDto(13);                /* その他連絡先電話番号         未設定項目 */
+    public ItemDto sonota_renrakusaki_kana_address1 = new ItemDto(40);      /* その他連絡先カナ住所１       未設定項目 */
+    public ItemDto sonota_renrakusaki_kana_address2 = new ItemDto(40);      /* その他連絡先カナ住所２       未設定項目 */
+    public ItemDto sonota_renrakusaki_kana_banchi = new ItemDto(40);        /* その他連絡先カナ番地         未設定項目 */
+    public ItemDto sonota_renrakusaki_build_kana_meisho = new ItemDto(40);  /* その他連絡先カナビル名称     未設定項目 */
+    public ItemDto kaitakuten_cd = new ItemDto(7);                          /* 開拓店コード                 未設定項目 */
+    public ItemDto shoukaiten_cd = new ItemDto(10);                         /* 紹介店コード                 未設定項目 */
+    public ItemDto shoukaiten_shain_cd = new ItemDto(10);                   /* 紹介店社員コード             未設定項目 */
+    public ItemDto kanyu_keii = new ItemDto(1);                             /* 加入経緯                     未設定項目 */
+    public ItemDto hakkou_kaisha_cd = new ItemDto(4);                       /* 発行会社コード               未設定項目 */
+    public ItemDto houjin_cd = new ItemDto(9);                              /* 法人コード                   未設定項目 */
+    public ItemDto dm_kbn = new ItemDto(1);                                 /* ＤＭ区分                                */
+    public ItemDto dm_kibou_ten = new ItemDto(7);                           /* ＤＭ希望店                   未設定項目 */
+    public ItemDto kinmu_kbn = new ItemDto(1);                              /* 勤務区分                     未設定項目 */
+    public ItemDto shinkoku_kbn = new ItemDto(1);                           /* 申告区分                     未設定項目 */
+    public ItemDto nenshuu = new ItemDto(1);                                /* 年収                         未設定項目 */
+    public ItemDto gyoushu = new ItemDto(2);                                /* 業種                         未設定項目 */
+    public ItemDto shokugyou = new ItemDto(2);                              /* 職業                         未設定項目 */
+    public ItemDto kibo = new ItemDto(1);                                   /* 規模                         未設定項目 */
+    public ItemDto syokui = new ItemDto(1);                                 /* 職位                         未設定項目 */
+    public ItemDto nyushanen = new ItemDto(4);                              /* 入社年                       未設定項目 */
+    public ItemDto moushikomiji_honnin_kakunin = new ItemDto(2);            /* 申込時本人確認               未設定項目 */
+    public ItemDto nyukaiten_no = new ItemDto(7);                           /* CF店舗番号                              */
+    public ItemDto kaiin_no = new ItemDto(15);                              /* ポイントカード番号                      */
+    public ItemDto merumaga_kbn = new ItemDto(4);                           /* メルマガ区分                            */
+    public ItemDto ikoumoto_card_no = new ItemDto(15);                      /* 移行元ポイントカード番号     未設定項目 */
+    public ItemDto ikousaki_card_np = new ItemDto(15);                      /* 移行先ポイントカード番号     未設定項目 */
+    public ItemDto shinkensha_doui_flg = new ItemDto(1);                    /* 親権者同意フラグ             未設定項目 */
+    public ItemDto yobi_area = new ItemDto(8);                              /* 予備エリア                   未設定項目 */
+    public ItemDto saishu_koushin_date = new ItemDto(26);                   /* 最終更新年月日                          */
+    public ItemDto crlf = new ItemDto(2);                                   /* 改行コード                              */
+}

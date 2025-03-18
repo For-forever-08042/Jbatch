@@ -1,0 +1,10 @@
+#!/bin/ksh
+###########################################
+#  プログラムIDを環境変数に設定
+###########################################
+CM_MYPRGID=`basename $0 | cut -c1-9`
+export CM_MYPRGID
+
+java -jar -Xms1024m -Xmx1024m ${CM_JAVA_APBIN}/Pentasenser-0.0.1-SNAPSHOT.jar ${CM_MYPRGID}  ${@} > /dev/null 2>&1
+
+exit ${?}

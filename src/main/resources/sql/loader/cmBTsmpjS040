@@ -1,0 +1,258 @@
+#!/bin/ksh
+#-------------------------------------------------------------------------------
+#    名称          ：  サンプル配布実績中継
+#    プログラムID  ：  cmBTsmpjS
+#
+#    【処理概要】
+#        「サンプル品お渡し実績」ファイルを入力ファイルとし、
+#        サンプル配布実績中継処理を行う処理
+#        「サンプル品お渡し実績」ファイルは、顧客コードが暗号化されているため複合化を行い中間ファイルに出力する。
+#        「SQLLoaderでのデータロード」（cmABdbl2S）を使用し、
+#        中間ファイルのデータを「WSサンプル品お渡し実績ワーク」に登録する。
+#        開始メッセージ出力、「cmABdbl2S」と「cmABterbB」を起動し、終了メッセージを出力し、戻り値を返却。
+#
+#    【引数説明】
+#       -DEBUG   :  デバッグモードでの実行（トレース出力機能が有効）
+#       -debug   :  デバッグモードでの実行（トレース出力機能が有効）
+#
+#    【戻り値】
+#       10     ：  正常
+#       99     ：  警告
+#-------------------------------------------------------------------------------
+#    稼働環境
+#      Red Hat Enterprise Linux 6.1
+#
+#    改定履歴
+#      40.00 : 2022/11/25 SSI.一ノ瀬：MCCM 初版
+#-------------------------------------------------------------------------------
+#  $Id:$
+#-------------------------------------------------------------------------------
+#  Copyright (C) 2022 NTT DATA CORPORATION
+#-------------------------------------------------------------------------------
+
+###########################################
+#  プログラムIDを環境変数に設定
+###########################################
+CM_MYPRGID=`basename $0 | cut -c1-9`
+export CM_MYPRGID
+CM_MYPRGNAME="サンプル配布実績中継"
+
+###########################################
+#  開始メッセージをAPログに出力
+###########################################
+cmABplodB cmABaplwB -P${CM_MYPRGID} -S${CM_MYPRGNAME}
+
+###################################################
+#  APログ出力関数
+###################################################
+APLOG_WT()
+{
+    IFS="@"
+    echo -e $1 | cmABplodB cmABaplwB $2
+    IFS=${BKUP_IFS}
+}
+
+###########################################
+#  日付・時刻取得
+###########################################
+#  システム日付
+SYS_YYYYMMDD=`date '+%Y%m%d'`
+#  システム年月
+SYS_YYYYMM=`date '+%Y%m'`
+
+###########################################
+#  定数定義
+###########################################
+#  戻り値
+Rtn_OK=10
+Rtn_NG=99
+
+#  引数定義
+ARG_OPT1="-DEBUG"       ###  デバッグモードでの実行（トレース出力機能が有効）
+ARG_OPT2="-debug"       ###  デバッグモードでの実行（トレース出力機能が有効）
+
+MK_FLG=0
+
+DB_KBN="SD"
+FILE_NAME="PCS_TR_014"
+SANMPLE_FILE_NAME="GORC0090.csv"
+SAMPLE_WORK="WSサンプル品お渡し実績"
+KAIIN_JOUHOU_WK="WS会員ＧＯＯＰＯＮ番号"
+
+
+CTLFileName="ldrWSSampleachievement"
+###########################################
+#  DB接続先
+###########################################
+CONNECT_SD=${CM_USR_SD}/${CM_PSW_SD}@${CM_ORA_SID_SD}
+
+###########################################
+#  稼動ディレクトリ決定
+###########################################
+if test "$CM_APWORK_DATE" = ""
+then
+    CM_APWORK_DATE=$CM_APWORK/`date +%Y%m%d`
+    export CM_APWORK_DATE
+fi
+
+if test ! -d ${CM_APWORK_DATE}
+then
+    mkdir -p ${CM_APWORK_DATE} > /dev/null 2>&1
+    if  [ $? -ne 0 ]; then
+    # 作業ディレクトリファイル作成失敗
+        cmABplodB cmABaplwB -P${CM_MYPRGID} -M"稼動ディレクトリ作成エラー" -FE
+        cmABplodB cmABaplwB -P${CM_MYPRGID} -E${CM_MYPRGNAME} -FE
+        exit ${Rtn_NG}
+    fi
+fi
+
+cd $CM_APWORK_DATE
+
+###########################################
+#  引数の格納
+###########################################
+if test "${#}" -gt 1
+then
+    cmABplodB cmABaplwB -P${CM_MYPRGID} -M"引数エラー [引数オーバー]" -FE
+    cmABplodB cmABaplwB -P${CM_MYPRGID} -E${CM_MYPRGNAME} -FE
+    exit ${Rtn_NG}
+fi
+
+#  引数格納変数初期化
+OPTION1=""
+#  引数格納
+while test "${#}" -ne 0
+do
+    for ARG_VALUE in ${@}
+    do
+        if test ${ARG_VALUE} = ${ARG_OPT1} -o ${ARG_VALUE} =  ${ARG_OPT2}
+        then
+            OPTION1=${ARG_VALUE}
+            shift 1
+        else
+            cmABplodB cmABaplwB -P${CM_MYPRGID} -M"引数エラー [定義外の引数(${ARG_VALUE})]" -FE
+            cmABplodB cmABaplwB -P${CM_MYPRGID} -E${CM_MYPRGNAME} -FE
+            exit ${Rtn_NG}
+        fi
+   done
+done
+
+###########################################
+#  ctlファイル存在チェック
+###########################################
+CHECK_FILE=$CM_APSQL/loader/${CTLFileName}.ctl
+if [[ ! (-a $CHECK_FILE) ]]
+then
+    cmABplodB cmABaplwB -P${CM_MYPRGID} -M"${CTLFileName}.ctlファイルが存在しません" -FE
+    cmABplodB cmABaplwB -P${CM_MYPRGID} -E${CM_MYPRGNAME} -FE
+    exit ${Rtn_NG}
+fi
+
+###########################################
+#  復号化してTMPファイルに出力する
+########################################### 
+touch ${CM_FILENOWRCV}/${FILE_NAME}.csv
+
+cat ${CM_FILENOWRCV}/${FILE_NAME}.csv | while read LINE
+do
+    KOKYKU_CODE=`echo ${LINE} | awk -F'[,]' '{print $7}'`
+    
+    KOKYKU_CODE_RES=`cmABplodB cmABkbhhB -PMP2 -S${KOKYKU_CODE}`
+
+    LINE=`echo ${LINE//$KOKYKU_CODE/$KOKYKU_CODE_RES}`
+
+    echo ${LINE//$DPOINT_CARD/$DPOINT_CARD_RES} >> ${FILE_NAME}.tmp
+
+    MK_FLG=1
+
+done
+
+###########################################
+#  テーブルTruncate
+###########################################
+cmABplodB cmABdbtrS -T ${SAMPLE_WORK} -D ${DB_KBN}
+RTN=$?
+if test "${RTN}" -ne ${Rtn_OK}
+then
+    cmABplodB cmABaplwB -P${CM_MYPRGID} -M"${SAMPLE_WORK}のTruncateに失敗しました" -FW
+    cmABplodB cmABaplwB -P${CM_MYPRGID} -E${CM_MYPRGNAME} -FW
+    DELETE_LOAD_DATA
+    DELETE_UNZIPPED_FILES
+    COPY_ERR_FILE
+    exit ${Rtn_NG}
+fi
+
+##################################################
+#  SQLLoader実行(サンプル品お渡し実績ファイル)
+##################################################
+if test ${MK_FLG} -eq 1
+then
+    if test -f ${CM_APWORK_DATE}/${FILE_NAME}.tmp
+    then
+        #  改行コードからCRを削除
+        cat ${CM_APWORK_DATE}/${FILE_NAME}.tmp | tr -d '\r' > ${FILE_NAME}.tmp1 2> /dev/null
+    fi
+
+    SIZE=$(wc -c < ${CM_APWORK_DATE}/${FILE_NAME}.tmp1)
+    if (( $SIZE != 0 )) then
+        cmABplodB cmABaplwB -P${CM_MYPRGID} -M"サンプル品お渡し実績ファイルのデータロード"
+        cmABplodB cmABdbl2S -D ${DB_KBN} -C ${CTLFileName}
+        RTN=$?
+        if test "${RTN}" -ne ${Rtn_OK}
+        then
+            cmABplodB cmABaplwB -P${CM_MYPRGID} -M"SQLLoaderの実行に失敗しました" -FE
+            cmABplodB cmABaplwB -P${CM_MYPRGID} -E${CM_MYPRGNAME} -FE
+            exit ${Rtn_NG}
+        fi
+    fi
+fi
+
+###########################################
+# WS会員GOOPON番号登録
+###########################################
+RTN_VAL=`sqlplus -s ${CONNECT_SD} > ${CM_MYPRGID}.log 2>&1 <<EOF
+         SET PAUSE OFF
+         SET AUTOCOMMIT OFF
+         SET EXITCOMMIT OFF
+         whenever sqlerror exit 1
+         @${CM_APSQL}/${CM_MYPRGID}.sql
+commit;
+exit
+EOF
+`
+RTN=${?}
+if test "${RTN}" -ne 0
+then
+    SQL_CD=`cat ${CM_MYPRGID}.log | grep ORA- | sed s/ORA-/'\n'ORA-/ | grep "ORA-" |  cut -c5-9` 
+    cmABplodB cmABaplwB -PcmBTapfuS -M"サンプル配布実績中継処理に失敗しました。SQLCODE=${SQL_CD}" -FE
+    cmABplodB cmABaplwB -P${CM_MYPRGID} -E${CM_MYPRGNAME} -FE
+    exit ${Rtn_NG}
+fi
+
+###########################################
+#  連動ファイル作成（SPSS向け)
+###########################################
+cmABplodB cmABterbB -PcmBTsmpjP -F${SANMPLE_FILE_NAME} -S${DB_KBN} -A
+
+RTN=${?}
+if test "${RTN}" -ne ${Rtn_OK}
+then
+    APLOG_WT "連動ファイル作成エラー " -FW
+    exit ${Rtn_NG}
+fi
+
+###################################################
+#  バックアップファイルと一時ファイルを削除
+###################################################
+if test ${MK_FLG} -eq 1
+then
+    rm -f ${CM_APWORK_DATE}/${FILE_NAME}.tmp1
+    rm -f ${CM_APWORK_DATE}/${FILE_NAME}.tmp
+fi
+
+###########################################
+#  終了メッセージをAPログに出力
+###########################################
+cmABplodB cmABaplwB -PcmBTsmpjS -E${CM_MYPRGNAME}
+
+exit ${Rtn_OK}

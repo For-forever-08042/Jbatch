@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+  <entry key="DB_DRIVER">org.postgresql.Driver</entry>
+  <entry key="DB_URL">jdbc:postgresql://10.0.92.112:54323/cmsho</entry>
+  <entry key="DB_HOST_NM">10.0.92.112</entry>
+  <entry key="DB_PORT_NO">54323</entry>
+  <entry key="DB_SID">cmsho</entry>
+  <entry key="DB_USER_NM">cmuser</entry>
+  <entry key="DB_PASS_WD">cmuser</entry>
+  <entry key="DB_MAX_CON_CNT">1</entry>
+  <entry key="DB_IDLE_CNT">1</entry>
+  <entry key="DB_WAIT_TIME">30</entry>
+
+  <entry key="TRANSFER_URL">http://172.22.22.207/cmex/dc</entry>
+  <entry key="TRANSFER_URL_EX">http://172.22.22.207/cmex/pt</entry>
+
+  <entry key="TRANSFER_CONN_TIMEOUT">1000</entry>
+  <entry key="TRANSFER_CONN_RETRY">5</entry>
+  <entry key="TRANSFER_CONN_WAIT">15000</entry>
+  <entry key="TRANSFER_CONN_LIMIT_MINUTES">1</entry>
+  <entry key="TRANSFER_CONN_LIMIT_COUNTS">3</entry>
+  
+  <entry key="TRANSFER_BUSY_RETRY">5</entry>
+  <entry key="TRANSFER_BUSY_WAIT">15000</entry>
+  <entry key="TRANSFER_BUSY_LIMIT_MINUTES">1</entry>
+  <entry key="TRANSFER_BUSY_LIMIT_COUNTS">3</entry>
+  
+  <entry key="TRANSFER_READ_TIMEOUT">5000</entry>
+  <entry key="TRANSFER_READ_RETRY">5</entry>
+  <entry key="TRANSFER_READ_WAIT">15000</entry>
+  <entry key="TRANSFER_READ_LIMIT_MINUTES">1</entry>
+  <entry key="TRANSFER_READ_LIMIT_COUNTS">3</entry>
+
+  <entry key="TRANSFER_SEND_WAIT_TIME_MILLIS">1000</entry>
+  <entry key="TRANSFER_SEND_WAIT_CYCLE">30</entry>
+
+  <entry key="OIKOSHI_WAIT_MILLIS">3000</entry>
+  <entry key="OIKOSHI_LIMIT_MINUTES">10</entry>
+
+  <entry key="EMPPFILE_WAIT_MILLIS">300000</entry>
+  <entry key="EMPPFILE_LIMIT_COUNTS">10</entry>
+  <entry key="EMPPCHK_MILLIS">1000</entry>
+  <entry key="EMPPCHK_PS_NAME">cmBTempp</entry>
+  <entry key="EMPPCHK_FILE_NAME">cmABfrcvS_cmBTemppS</entry>
+
+</properties>

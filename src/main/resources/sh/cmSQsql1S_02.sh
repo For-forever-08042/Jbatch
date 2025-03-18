@@ -1,0 +1,2 @@
+splfl=`ls count_card_month????????.utf|cut -c-24`
+echo ${splfl}

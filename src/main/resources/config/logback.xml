@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true" scanPeriod="60 seconds"
+               debug="false">
+    <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss" />
+    <contextName>${bySecond}</contextName>
+    <property name="LOG_PATTERN"
+              value="%d{yyyy/MM/dd HH:mm:ss:SSS,GMT+8} %X{traceId} %X{CLIENTID} %X{AUTHENTICATION} %X{LASTNAME} %X{NAME} %X{APIURL} %-5p %X{HOST} %c %method %L - %m%n" />
+    <property name="LOG_PATH_SYSTEM"
+              value="./ntlog/" />
+    <!-- File Output Root Path -->
+    <property name="LOG_FILE_INFO" value="info.log" />
+    <property name="LOG_FILE_VM_INFO" value="info.log" />
+    <property name="LOG_FILE_ERROR" value="error.log" />
+    <property name="LOG_FILE_WARN" value="warn.log" />
+    <property name="LOG_FILE_DEBUG" value="debug.log" />
+
+    <property name="MAX_HISTORY_DAY_SAVE" value="7" />
+    <!--LEVEL -->
+    <property name="SPRING_LEVEL" value="WARN" />
+    <property name="MYBATIS_LEVEL" value="DEBUG" />
+    <property name="SCHEDULE_LEVEL" value="WARN" />
+    <property name="TAG_LEVEL" value="DEBUG" />
+
+    <!-- Standard Output -->
+    <appender name="STDOUT"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <Target>System.out</Target>
+        <encoder>
+            <Pattern>${LOG_PATTERN}</Pattern>
+            <charset>UTF-8</charset>
+            <immediateFlush>true</immediateFlush>
+        </encoder>
+    </appender>
+
+    <!--SYSTEM START -->
+    <!-- system INFOログ出力用appender -->
+    <appender name="INFO_SYSTEM"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH_SYSTEM}${LOG_FILE_INFO}</file>
+        <encoder>
+            <charset>UTF-8</charset>
+            <Pattern>${LOG_PATTERN}</Pattern>
+            <immediateFlush>true</immediateFlush>
+        </encoder>
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH_SYSTEM}${LOG_FILE_INFO}.%d{yyyy-MM-dd}
+            </fileNamePattern>
+            <maxHistory>${MAX_HISTORY_DAY_SAVE}</maxHistory>
+        </rollingPolicy>
+
+        <!-- Log Level -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <!-- WARNログ出力用appender -->
+    <appender name="WARN_SYSTEM"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH_SYSTEM}${LOG_FILE_WARN}</file>
+        <encoder>
+            <charset>UTF-8</charset>
+            <Pattern>${LOG_PATTERN}</Pattern>
+            <immediateFlush>true</immediateFlush>
+        </encoder>
+
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH_SYSTEM}${LOG_FILE_WARN}.%d{yyyy-MM-dd}
+            </fileNamePattern>
+            <maxHistory>${MAX_HISTORY_DAY_SAVE}</maxHistory>
+        </rollingPolicy>
+
+        <!-- Log Level -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- ERRORログ出力用appender -->
+    <appender name="DEBUG_SYSTEM"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH_SYSTEM}${LOG_FILE_DEBUG}</file>
+        <encoder>
+            <charset>UTF-8</charset>
+            <Pattern>${LOG_PATTERN}</Pattern>
+            <immediateFlush>true</immediateFlush>
+        </encoder>
+
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH_SYSTEM}${LOG_FILE_DEBUG}.%d{yyyy-MM-dd}
+            </fileNamePattern>
+            <maxHistory>2</maxHistory>
+        </rollingPolicy>
+        <!-- Log Level -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- ERRORログ出力用appender -->
+    <appender name="ERROR_SYSTEM"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH_SYSTEM}${LOG_FILE_ERROR}</file>
+        <encoder>
+            <charset>UTF-8</charset>
+            <Pattern>${LOG_PATTERN}</Pattern>
+            <immediateFlush>true</immediateFlush>
+        </encoder>
+
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH_SYSTEM}${LOG_FILE_ERROR}.%d{yyyy-MM-dd}
+            </fileNamePattern>
+            <maxHistory>${MAX_HISTORY_DAY_SAVE}</maxHistory>
+        </rollingPolicy>
+        <!-- Log Level -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <!--SYSTEM END -->
+
+    <!--Spring 環境-->
+    <logger name="org.springframework" level="${SPRING_LEVEL}" additivity="true" >
+        <appender-ref ref="WARN_SYSTEM" />
+        <appender-ref ref="ERROR_SYSTEM" />
+        <appender-ref ref="DEBUG_SYSTEM" />
+        <appender-ref ref="INFO_SYSTEM" />
+    </logger>
+
+    <logger name="jp.co.mcc.nttdata" level="debug" additivity="true">
+        <appender-ref ref="WARN_SYSTEM" />
+        <appender-ref ref="ERROR_SYSTEM" />
+        <appender-ref ref="DEBUG_SYSTEM" />
+        <appender-ref ref="INFO_SYSTEM" />
+    </logger>
+
+    <logger name="org" level="debug" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+<!--    <root  level="debug">-->
+<!--        <appender-ref ref="STDOUT"/>-->
+<!--    </root>-->
+</configuration>

@@ -1,0 +1,37 @@
+spring:
+  #  環境
+  profiles:
+    active: @profiles.active@
+  #メッセージ
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+#ログ
+logging:
+  config: classpath:config/logback.xml
+#app/batch customer configure
+tag:
+  language: en
+  system:
+    git-hash: ${GIT_HASH:""}
+  log:
+    #app/batch log level
+    level: debug
+  batch:
+  rest:
+    connect:
+      connectTimeout: 10000
+      readTimeout: 20000
+ntt:
+  common:
+    localEvn: @profiles.localEvn@
+    module:
+      -　cmABfuncL
+      -　cmBTfuncB
+      -　cmBTmonpB
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    #todo customer  mybatis log
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

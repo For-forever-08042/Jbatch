@@ -1,0 +1,13 @@
+OPTIONS(ERRORS=0)
+LOAD DATA
+CHARACTERSET JA16SJIS
+INFILE 'DmTargetList.dat'
+APPEND
+INTO TABLE WSＤＭ対象者リスト
+FIELDS TERMINATED BY ','
+TRAILING NULLCOLS
+(    
+      ＧＯＯＰＯＮ番号
+     ,店舗コード
+     ,会社コード
+)

@@ -1,0 +1,10 @@
+spring:
+  batch:
+    job:
+      enabled: false
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@10.0.196.206:1521:orcl
+    username: cmuser
+    password: cmuser
+

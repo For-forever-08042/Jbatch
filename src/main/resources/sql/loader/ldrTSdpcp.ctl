@@ -1,0 +1,46 @@
+OPTIONS(ERRORS=0, SKIP=1)
+LOAD DATA
+CHARACTERSET JA16SJIS
+APPEND
+INTO TABLE TSｄポイント日次取引明細@PNAME@
+(
+    ポイント変動区分                    POSITION(10:12),
+    加盟店営業日                        POSITION(13:20),
+    加盟店発生年月日                    POSITION(21:28),
+    加盟店発生時刻                      POSITION(29:34),
+    チャネル区分                        POSITION(35:36),
+    加盟店コード                        POSITION(37:48),
+    加盟店支部コード                    POSITION(49:68),
+    加盟店店舗コード                    POSITION(69:93),
+    加盟店端末ＮＯ                      POSITION(94:106),
+    取引番号                            POSITION(107:114),
+    ｄポイントカード番号                POSITION(115:134),
+    進呈ｄポイントフラグ                POSITION(135),
+    進呈ｄポイント数                    POSITION(136:148),
+    利用ｄポイントフラグ                POSITION(149),
+    利用ｄポイント数                    POSITION(150:162),
+    ポイント進呈色区分１                POSITION(163:164),
+    ポイント進呈符号１                  POSITION(165),
+    ポイント進呈数１                    POSITION(166:178),
+    ポイント進呈色区分２                POSITION(179:180),
+    ポイント進呈符号２                  POSITION(181),
+    ポイント進呈数２                    POSITION(182:194),
+    ポイント進呈色区分３                POSITION(195:196),
+    ポイント進呈符号３                  POSITION(197),
+    ポイント進呈数３                    POSITION(198:210),
+    来店ポイント進呈数                  POSITION(211:223),
+    売上点数                            POSITION(224:228),
+    売上金額符号                        POSITION(229),
+    売上金額                            POSITION(230:237),
+    売上対象外金額符号                  POSITION(238),
+    売上対象外金額                      POSITION(239:246),
+    レシート番号                        POSITION(247:254),
+    ポイント利用数                      POSITION(255:267),
+    ポイント照会日                      POSITION(268:275),
+    キャンペーン進呈フラグ              POSITION(276),
+    ｄポイント処理年月日時刻            POSITION(277:290) DATE(14) "YYYYMMDDHH24MISS",
+    バッチ更新日                        CONSTANT '@BATDATE@',
+    最終更新日                          CONSTANT '@BATDATE@',
+    最終更新日時                        SYSDATE,
+    最終更新プログラムＩＤ              CONSTANT 'cmBTdpcpS'
+)

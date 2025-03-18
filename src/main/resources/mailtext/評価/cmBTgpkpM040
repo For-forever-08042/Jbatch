@@ -1,0 +1,52 @@
+MCCマネジメント　ご担当者様
+
+%yyyy%年%mm%月%dd%日分の家族会員実績・ポイント譲渡実績をご報告いたします。
+
+■家族会員実績
+・%yyyy%年%mm%月%dd%日分
+  新規グループ数:                    %count1% 組
+  登 録 会 員 数:                   %count2% 人
+  解除グループ数:                    %count3% 組
+  解 除 会 員 数:                    %count4% 人
+
+・現時点での有効件数
+  家族グループ数:               %count5% 組
+  家 族 会 員 数:               %count6% 人
+
+■家族会員申請件数
+・%yyyy%年%mm%月%dd%日分
+  登録申請:                          %count7% 件
+  未 完 了:                          %count8% 件
+
+・累計件数
+  登録申請:                     %count9% 件
+  未 完 了:                      %count10% 件
+
+◆ポイント譲渡実績
+・%yyyy%年%mm%月%dd%日分
+  譲  渡  件  数:                   %count11% 件
+  家族グループ数:                   %count12% 組
+  ポ イ ン ト 数:                %count13% PT
+
+・%mm%月度累計
+  譲  渡  件  数:                  %count14% 件
+  家族グループ数:                  %count15% 組
+  ポ イ ン ト 数:               %count16% PT
+
+◆ポイント譲渡回数TOP5(%mm%月度)
+  グループID 譲渡回数      ポイント数
+%count17%          %count18% 回         %count19% PT
+%count20%          %count21% 回         %count22% PT
+%count23%          %count24% 回         %count25% PT
+%count26%          %count27% 回         %count28% PT
+%count29%          %count30% 回         %count31% PT
+
+◆ポイント譲渡ポイント数TOP5(%mm%月度)
+  グループID 譲渡回数      ポイント数
+%count32%          %count33% 回         %count34% PT
+%count35%          %count36% 回         %count37% PT
+%count38%          %count39% 回         %count40% PT
+%count41%          %count42% 回         %count43% PT
+%count44%          %count45% 回         %count46% PT
+
+以上、よろしくお願いいたします。

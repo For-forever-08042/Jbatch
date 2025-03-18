@@ -1,0 +1,16 @@
+OPTIONS (ERRORS = 0)
+LOAD DATA
+CHARACTERSET JA16SJIS
+INFILE 'cmBTcpupS_B0003.dat'
+TRUNCATE
+PRESERVE BLANKS
+INTO TABLE WSクーポン店舗マスタワーク
+FIELDS TERMINATED BY "," OPTIONALLY ENCLOSED BY '"'
+TRAILING NULLCOLS
+(
+     企業コード
+    ,クーポンＩＤ
+    ,店舗コード
+    ,最終更新日時             CHAR "TO_DATE(:最終更新日時, 'YYYY/MM/DD HH24:MI:SS')"
+    ,最終更新者ＩＤ
+)

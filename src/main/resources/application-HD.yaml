@@ -1,0 +1,9 @@
+spring:
+  batch:
+    job:
+      enabled: false
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://10.0.92.112:54322/cmmho
+    username: cmuser
+    password: cmuser

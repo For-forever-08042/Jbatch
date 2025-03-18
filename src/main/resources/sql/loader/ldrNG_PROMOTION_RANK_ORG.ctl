@@ -1,0 +1,14 @@
+OPTIONS (ERRORS = 0)
+LOAD DATA
+CHARACTERSET JA16SJIS
+INFILE 'NG_PROMOTION_RANK_ORG.CSV'
+TRUNCATE
+INTO TABLE WSポイント付与会員ランクO
+FIELDS TERMINATED BY '\t' OPTIONALLY ENCLOSED BY '"'
+(
+     発注番号
+    ,ランクコード
+    ,プレミアムポイント区分
+    ,計算基準単位額
+    ,ポイント付与率
+)
