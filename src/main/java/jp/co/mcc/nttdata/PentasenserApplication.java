@@ -46,7 +46,7 @@ public class PentasenserApplication {
 //                System.setProperty(env.getKey(), env.getValue());
 ////                log.info("{}={}",env.getKey(), env.getValue());
 //            }
-
+            args = new String[] { "cmBTktskS", "-debug" };
             System.out.println("start args: " + String.join(", ", args));
 
             String jobName = args[0];
